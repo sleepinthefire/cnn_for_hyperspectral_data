@@ -21,6 +21,7 @@ bands = 204
 path_cod = {filepath:codinate,}
 
 #load the spectral file, and extract ROI, put the label
+#リターンは(データの数、バンド数、１)バンドの最後尾にラベル情報を付加　
 def mk_data(path, label, coordinate):
     hs = spectrals()
     x1, y1, x2, y2 = coordinate
@@ -40,7 +41,7 @@ def mk_data(path, label, coordinate):
 
 data = []    
 for path, cod in path_cod.items():
-    data_ser.append(mk_data(path, 0, cod))
+    data.append(mk_data(path, 0, cod))
     
 data = np.concatenate([data[0],data[2]])
 train = data[:,:204,:]

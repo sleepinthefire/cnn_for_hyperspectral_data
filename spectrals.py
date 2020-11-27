@@ -62,7 +62,7 @@ class spectrals:
          array = array[x1:x1+width, y2:y2+height, :]
          
          return array
- 
+    #データセットの作成
     def mk_dataset(self, array, glid_length=32, slide=16, minmax=True):
         height = array.shape[0]
         width = array.shape[1]
