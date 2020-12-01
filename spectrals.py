@@ -15,6 +15,8 @@ class spectrals:
         self.bands = [(400 + (600/203) * x) for x in range(204)]
 
     #specim　IQのデータをnumpy　arrayにして読み込み　なんかそのまま出力するとスペクトルが反転してるから[::-1]とかで反転させると良きかも
+    #pathは/capture/まで
+    #dateはosモジュール使ってやった方がいいかも
     #returnは512,512,204
     def load_specim(self, path):
         wh = 'WHITEREF_'
@@ -62,8 +64,18 @@ class spectrals:
          array = array[x1:x1+width, y2:y2+height, :]
          
          return array
+
+
     #データセットの作成
     def mk_dataset(self, array, glid_length=32, slide=16, minmax=True):
+    """
+    array => numpy array (512,512,204) 
+    glid_length =>  0 < int < 512 
+    slide => 0 < int < 512
+    minmax => True or False 正規化処理の有無
+    return pd.DataFrame (index=wavelength(204), columns=glid loc)
+
+    """
         height = array.shape[0]
         width = array.shape[1]
         
@@ -97,6 +109,7 @@ class spectrals:
         return dataset
     
     #zeroに基準のスペクトルのNPアレイcompareに比較するスペクトルのNPアレイ
+    #sam解析ができる　returnが二つのベクトルの角度差　小さいほど類似度高い
     def Sam(self, zero, compare):
         norm_zero = np.sqrt(np.dot(zero, zero))
         norm_compare = np.sqrt(np.dot(compare, compare))
