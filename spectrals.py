@@ -47,6 +47,7 @@ class spectrals:
        
         
     #RGB画像の表示 matplotlibを利用する
+    #入力rgbは関数rgbのリターンのndarray
     def imshow(self, rgb):
         ax = plt.subplot()
         ax.imshow(rgb)
@@ -54,6 +55,7 @@ class spectrals:
     
     
     #左上と右下を指定してスペクトルの切り取りupper_left, lower_right はリストかタプルで（x,y）のように入力
+    #array->numpy array(3d), upper_left, lower_right -> list or tuple(ex: [x,y]), return -> numpy array
     def select_region(self, array, upper_left, lower_right):
          (x1, y1) = upper_left
          (x2, y2) = lower_right
@@ -67,6 +69,7 @@ class spectrals:
 
 
     #データセットの作成
+    #array->numpy array(3d), glid_length, slide->int, minmax=boolian
     def mk_dataset(self, array, glid_length=32, slide=16, minmax=True):
     """
     array => numpy array (512,512,204) 
@@ -110,6 +113,7 @@ class spectrals:
     
     #zeroに基準のスペクトルのNPアレイcompareに比較するスペクトルのNPアレイ
     #sam解析ができる　returnが二つのベクトルの角度差　小さいほど類似度高い
+    #zero, compare->bector(np 1d array, list)
     def Sam(self, zero, compare):
         norm_zero = np.sqrt(np.dot(zero, zero))
         norm_compare = np.sqrt(np.dot(compare, compare))
