@@ -204,6 +204,10 @@ class spectrals:
                 intensity = preprocessing.minmax_scale(intensity)
         return intensity
 
+    
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
 """
 path = r'D:\Research rocks\2020-08-04_008\capture/'
 hs = spectrals()
